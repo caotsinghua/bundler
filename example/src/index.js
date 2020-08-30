@@ -1,6 +1,7 @@
-import {sum} from './utils'
+import {sum} from './utils.js'
 const foo = () => {
   console.log("-- foo --");
-  sum([1,2,3])
+  console.log(sum([1,2,3]))
 };
+function hello(){}
 foo()

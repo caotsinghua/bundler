@@ -2,6 +2,7 @@ const fs = require("fs");
 const parser = require("@babel/parser");
 const path = require("path");
 const traverse = require("@babel/traverse").default;
+const { transformFromAst, transformFromAstSync } = require("@babel/core");
 
 const Parser = {
   getAst(path) {
@@ -33,8 +34,19 @@ const Parser = {
         // 保存依赖模块路径
         dependencies[node.source.value] = filepath;
       },
+      // FunctionDeclaration(n){
+      //   console.log("-- function --")
+      //   console.log(n.node.id.name)
+      // }
     });
     return dependencies;
+  },
+  // 把ast语法树转换成代码
+  getCode(ast) {
+    const { code } = transformFromAstSync(ast, null, {
+      presets: ["@babel/preset-env"],
+    });
+    return code;
   },
 };
 
