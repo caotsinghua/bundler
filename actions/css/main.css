@@ -1,0 +1,13 @@
+@import "module.css";
+/* @import url("a-css-in-modules/main.css"); */
+/* @import url(/module.css); */
+div.main {
+  background: "white";
+  background-image: url(/logo.png);
+  
+}
+#box{
+    width:100px;
+    height: 100px;
+    background-color: #cfcc;
+}

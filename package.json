@@ -1,16 +1,37 @@
 {
+  "scripts": {
+    "action:css": "rm -rf ./actions/dist && webpack --config ./actions/webpack.config.js --mode development",
+    "action:css:dev": "webpack-dev-server --config ./actions/webpack.config.js"
+  },
   "dependencies": {
     "@babel/core": "^7.11.5",
     "@babel/parser": "^7.11.4",
     "@babel/preset-env": "^7.11.5",
     "@babel/traverse": "^7.11.0",
+    "autoprefixer": "^9.8.6",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
+    "core-js": "3",
+    "css-loader": "^4.2.2",
+    "cssnano": "^4.1.10",
+    "file-loader": "^6.1.0",
+    "html-webpack-plugin": "^4.4.1",
+    "image-trace-loader": "^1.0.2",
     "jest": "^26.4.2",
     "loader-utils": "^2.0.0",
     "memfs": "^3.2.0",
+    "mini-css-extract-plugin": "^0.11.0",
+    "postcss": "^7.0.32",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.2.1",
     "tapable": "^1.1.3",
+    "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
-  }
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.3"
+  },
+  "browserslist": [
+    "ie >= 8"
+  ]
 }

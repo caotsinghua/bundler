@@ -1,0 +1,9 @@
+.red {
+  color: red;
+  /* background-image: url(/static/logo.png); */
+  display: flex;
+  transform: translateX(10px);
+  text-decoration-color:#ccc;
+  background-color: #ccc;
+  background-image: url('./cat.png');
+}
