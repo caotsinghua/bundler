@@ -3,7 +3,12 @@ const { merge } = require("webpack-merge");
 const parts = require("./webpack.part");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+var DashboardPlugin = require("webpack-dashboard/plugin");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const HappyPack = require("happypack");
+const os = require("os");
+var happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+const smp = new SpeedMeasurePlugin();
 const base = {
   context: __dirname,
   entry: {
@@ -15,10 +20,23 @@ const base = {
   },
   module: {
     rules: [
-        {
-            test:/\.js$/,
-            use:['babel-loader']
-        }
+      {
+        test: /\.js$/,
+        use: [
+          // {
+          //   loader: "babel-loader",
+          //   options: {
+          //     cacheDirectory: true,
+          //   },
+          // },
+          {
+            loader:'happypack/loader',
+            options:{
+              id:'babel'
+            }
+          }
+        ],
+      },
     ],
   },
   devServer: {
@@ -30,13 +48,38 @@ const base = {
   plugins: [
     // new webpack.NamedModulesPlugin(),
     // new webpack.HotModuleReplacementPlugin(),
+    new webpack.DllReferencePlugin({
+      manifest:path.resolve(__dirname,'./dlls/manifest.json'),
+      context:path.resolve(__dirname,'../actions'),
+      scope:'beta'
+    }), 
     new HtmlWebpackPlugin({
       title: "HtmlWebpackPlugin-page",
       chunks: ["style-entry"],
       template: path.resolve(__dirname, "./style-entry.html"),
     }),
+    new HappyPack({
+      // 用 ID 来标识 happupack 处理相关 loader
+      id: "babel",
+      // 如何处理  用法和 loader 的配置一样
+      loaders: [
+        {
+          loader: "babel-loader",
+          options: {
+            cacheDirectory: true,
+          },
+        },
+      ],
+      // 共享进程池
+      threadPool: happyThreadPool,
+      // 允许 HappyPack 输出日志
+      verbose: true,
+      debug:true
+    }),
+    // new DashboardPlugin(),
   ],
   devtool: "inline-cheap-module-source-map",
+  // stats: "verbose",
 };
 
 const cssUse = [
@@ -91,4 +134,4 @@ const result = merge(
 );
 console.log(result.module.rules);
 
-module.exports = result;
+module.exports = smp.wrap(result);

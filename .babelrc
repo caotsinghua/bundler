@@ -1,17 +1,34 @@
 {
     "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "targets": {
-                    "node": "current",
-                    "ie": "9"
-                },
-                "useBuiltIns":"entry",
-                "corejs":{
-                    "version":3
-                }
-            }
-        ],
+        // [
+        //     "@babel/preset-env",
+        //     {
+        //         "debug": false,
+        //         "targets": {
+        //             // "esmodules": true
+        //             "browsers": [
+        //                 "cover 99.5%"
+        //             ]
+        //         },
+        //         // "modules": false,
+        //         // "useBuiltIns": "usage",
+        //         // "corejs": {
+        //         //     "version": 3
+        //         // }
+        //     }
+        // ],
     ],
+    "plugins": [
+        // [
+        //     "@babel/plugin-transform-runtime",
+        //     {
+        //         "absoluteRuntime": false,
+        //         "corejs": 3,
+        //         "helpers": true,
+        //         "regenerator": true,
+        //         "useESModules": false,
+        //         "version": "7.0.0-beta.0"
+        //     }
+        // ]
+    ]
 }
