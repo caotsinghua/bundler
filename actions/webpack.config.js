@@ -7,10 +7,11 @@ var DashboardPlugin = require("webpack-dashboard/plugin");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const HappyPack = require("happypack");
 const os = require("os");
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 var happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const smp = new SpeedMeasurePlugin();
 const base = {
-  context: path.resolve(__dirname,'../actions'),
+  context: path.resolve(__dirname, "../actions"),
   entry: {
     "style-entry": "./style-entry.js",
   },
@@ -30,11 +31,11 @@ const base = {
           //   },
           // },
           {
-            loader:'happypack/loader',
-            options:{
-              id:'babel'
-            }
-          }
+            loader: "happypack/loader",
+            options: {
+              id: "babel",
+            },
+          },
         ],
       },
     ],
@@ -48,11 +49,22 @@ const base = {
   plugins: [
     // new webpack.NamedModulesPlugin(),
     // new webpack.HotModuleReplacementPlugin(),
-    new webpack.DllReferencePlugin({
-      manifest:require('./dlls/manifest.json'),
-      context:path.resolve(__dirname,'../actions'),
-      // scope:'beta'
-    }), 
+    // new webpack.DllReferencePlugin({
+    //   manifest:require('./dlls/manifest.json'),
+    //   context:path.resolve(__dirname,'../actions'),
+    //   // scope:'beta'
+    // }),
+    new HardSourceWebpackPlugin({
+      cachePrune: {
+        // Caches younger than `maxAge` are not considered for deletion. They must
+        // be at least this (default: 2 days) old in milliseconds.
+        maxAge: 2 * 24 * 60 * 60 * 1000,
+        // All caches together must be larger than `sizeThreshold` before any
+        // caches will be deleted. Together they must be at least this
+        // (default: 50 MB) big in bytes.
+        sizeThreshold: 50 * 1024 * 1024,
+      },
+    }),
     new HtmlWebpackPlugin({
       title: "HtmlWebpackPlugin-page",
       chunks: ["style-entry"],
@@ -74,7 +86,7 @@ const base = {
       threadPool: happyThreadPool,
       // 允许 HappyPack 输出日志
       verbose: true,
-      debug:true
+      debug: true,
     }),
     // new DashboardPlugin(),
   ],
