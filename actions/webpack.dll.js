@@ -10,12 +10,12 @@ module.exports = {
   output: {
     filename: "[name].dll.js",
     path: path.resolve(__dirname, "./dlls"),
-    library: "[name]_[hash]",
+    library: "react_vendor",
   },
   plugins: [
     new webpack.DllPlugin({
       context: path.resolve(__dirname, "../actions"),
-      name: "[name]_[hash]",
+      name: "react_vendor",
       path: path.resolve(__dirname, "./dlls/manifest.json"),
     }),
   ],

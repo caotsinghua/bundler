@@ -1,9 +1,10 @@
 import "./publicpath";
 import "./css/main.css";
 import logo from "./css/cat.png";
-import React from 'beta/react'
+import React from 'react'
+// import React from 'beta/react'
 console.log("==== test react ===")
-console.log(React)
+// console.log(React)
 
 console.log({
   logo,

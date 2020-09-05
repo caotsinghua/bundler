@@ -10,7 +10,7 @@ const os = require("os");
 var happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const smp = new SpeedMeasurePlugin();
 const base = {
-  context: __dirname,
+  context: path.resolve(__dirname,'../actions'),
   entry: {
     "style-entry": "./style-entry.js",
   },
@@ -49,9 +49,9 @@ const base = {
     // new webpack.NamedModulesPlugin(),
     // new webpack.HotModuleReplacementPlugin(),
     new webpack.DllReferencePlugin({
-      manifest:path.resolve(__dirname,'./dlls/manifest.json'),
+      manifest:require('./dlls/manifest.json'),
       context:path.resolve(__dirname,'../actions'),
-      scope:'beta'
+      // scope:'beta'
     }), 
     new HtmlWebpackPlugin({
       title: "HtmlWebpackPlugin-page",
@@ -78,7 +78,7 @@ const base = {
     }),
     // new DashboardPlugin(),
   ],
-  devtool: "inline-cheap-module-source-map",
+  // devtool: "inline-cheap-module-source-map",
   // stats: "verbose",
 };
 

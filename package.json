@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build:dll":"rm -rf ./actions/dll && webpack --config ./actions/webpack.dll.js --env development",
+    "build:dll":"rm -rf ./actions/dll && webpack --config ./actions/webpack.dll.js --mode development",
     "action:css": "rm -rf ./actions/dist && webpack --config ./actions/webpack.config.js --mode development",
     "dashboard:action:css": "rm -rf ./actions/dist && webpack-dashboard -- webpack --config ./actions/webpack.config.js --mode development",
     "action:css:dev": "webpack-dev-server --config ./actions/webpack.config.js",
